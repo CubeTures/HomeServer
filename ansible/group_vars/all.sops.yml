@@ -1,0 +1,16 @@
+flux_github_token: ENC[AES256_GCM,data:uPoc6TOfCS33rZqEPdRfLzAf9LvBpb7UWibD5aFYXpjcDsJRH8dBTIknpBXGqGrIeRGH036tVuw8EQyX4nEzFOXvUQmiN5cDqpQiL5ak8hx5h/49W1uLRStVQr1Q,iv:8MFIj0KA9SriHuG6H/+JIBpuZsplwEwTF7PL5Dx5bFY=,tag:ZCvmco2Eot4kaEv+TDRbLA==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1UjhQVkRZd1RiMnVLZ0Vn
+            NUV6b3pZQzNscWZpcEdOZitVMnVBZjBRODJZCkFva1NHOGFFWEdwaHk5SDh2MVl5
+            UTlSRlpnRFdOcURJODYrQmIxbmJ5bFkKLS0tIHFxSjFZaFhDY2EzZ3AyaXR2dmpj
+            VHVmWnE2SG9tMGVLTkgzZEF2UnJGeVEKcLx+40658pkVxpsrdT/hy/ILz2UbMmNm
+            0qGmPAhF04NVeqVeioY/Yd7jh5fwc2284keGy9LjowUEqXbbnm+K7g==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1ndgakr8qw24pl0d2znj4hq4lt6g9hpfgxg0d6l5r3sy8l8x609vq9n5560
+    lastmodified: "2026-10-12T14:23:06Z"
+    mac: ENC[AES256_GCM,data:dE4upQIKgW51mKr6DApjvg5qLbisHDKbIrSBTEth5X22+E9uCjyT2GNwmu1EP3Ib6JEpLkCQLkMHolj6NF+K1Wvab8JrGAHniE8iNQTXGCQZYTm0mBMHY2g8X8Kmu6qxZnK+bLhjp8QK/mOOC/lHfFRzCPoc8SuqfTU3xkGpDEg=,iv:grKgSTmKpw2tDjZLbRIjme7O296s2VdF6bT452o1dRg=,tag:tYTwcnekU0W4VwLtWlposA==,type:str]
+    unencrypted_suffix: _unencrypted
+    version: 3.13.3

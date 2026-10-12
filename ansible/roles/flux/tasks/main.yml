@@ -1,0 +1,45 @@
+- name: Install the Flux CLI
+  ansible.builtin.shell: set -o pipefail && curl -fsSL https://fluxcd.io/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/flux
+  environment:
+    FLUX_VERSION: "{{ flux_version }}"
+
+- name: Hand the age key to Flux
+  ansible.builtin.command: k3s kubectl apply -f -
+  args:
+    stdin: "{{ lookup('ansible.builtin.template', 'sops-age.yaml.j2') }}"
+  register: sops_age_apply
+  changed_when: sops_age_apply.stdout_lines | reject('search', ' unchanged$') | list | length > 0
+  no_log: true
+
+- name: Check whether Flux is already bootstrapped
+  ansible.builtin.command: k3s kubectl get kustomization flux-system -n flux-system
+  register: flux_check
+  changed_when: false
+  failed_when: false
+
+- name: Require a GitHub token for the bootstrap
+  ansible.builtin.assert:
+    that: flux_github_token | default('') | length > 0
+  when: flux_check.rc != 0
+
+- name: Bootstrap Flux
+  ansible.builtin.command: >-
+    flux bootstrap github
+    --owner={{ flux_github_owner }}
+    --repository={{ flux_github_repo }}
+    --branch={{ flux_branch }}
+    --path={{ flux_path }}
+    --personal
+  environment:
+    GITHUB_TOKEN: "{{ flux_github_token }}"
+    KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+  when: flux_check.rc != 0
+  changed_when: true
+
+- name: Note that the bootstrap was skipped
+  ansible.builtin.debug:
+    msg: Flux is already bootstrapped; skipping.
+  when: flux_check.rc == 0

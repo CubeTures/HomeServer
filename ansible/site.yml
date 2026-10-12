@@ -1,0 +1,7 @@
+- name: Set up home server
+  hosts: server
+  become: true
+  roles:
+    - base
+    - k3s
+    - flux

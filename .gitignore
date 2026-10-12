@@ -1,0 +1,6 @@
+# ansible
+.ansible
+kubeconfig
+
+# secrets
+age.key

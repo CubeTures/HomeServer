@@ -1,0 +1,11 @@
+k3s_channel: stable
+k3s_version: ""
+
+flux_version: ""
+flux_github_owner: CubeTures
+flux_github_repo: home-server
+flux_branch: main
+flux_path: k8s/clusters/home
+# flux_github_token # all.sops.yml
+
+sops_age_key_file: "{{ playbook_dir }}/../sops/age.key"

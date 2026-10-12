@@ -1,0 +1,75 @@
+- name: Create k3s config directory
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    mode: "0755"
+
+- name: Write k3s config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    mode: "0600"
+  notify: Restart k3s
+
+- name: Download the k3s installer
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /usr/local/bin/k3s-install.sh
+    mode: "0755"
+
+- name: Install k3s
+  ansible.builtin.command: /usr/local/bin/k3s-install.sh
+  args:
+    creates: /usr/local/bin/k3s
+  environment:
+    INSTALL_K3S_CHANNEL: "{{ k3s_channel }}"
+    INSTALL_K3S_VERSION: "{{ k3s_version }}"
+
+- name: Apply config changes before continuing
+  ansible.builtin.meta: flush_handlers
+
+- name: Wait for the node to be ready
+  ansible.builtin.command: k3s kubectl wait --for=condition=Ready node --all --timeout=180s
+  changed_when: false
+  retries: 5
+  delay: 10
+  register: k3s_ready
+  until: k3s_ready.rc == 0
+
+- name: Create ~/.kube for the login user
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0700"
+
+- name: Give the login user a kubeconfig
+  ansible.builtin.copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "/home/{{ ansible_user }}/.kube/config"
+    remote_src: true
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0600"
+
+- name: Read the kubeconfig
+  ansible.builtin.slurp:
+    src: /etc/rancher/k3s/k3s.yaml
+  register: k3s_kubeconfig
+
+- name: Create the local kubeconfig directory
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/kubeconfig"
+    state: directory
+    mode: "0700"
+  delegate_to: localhost
+  become: false
+
+- name: Save a kubeconfig on this machine
+  ansible.builtin.copy:
+    dest: "{{ playbook_dir }}/kubeconfig/{{ inventory_hostname }}.yaml"
+    content: "{{ k3s_kubeconfig.content | b64decode | replace('127.0.0.1', ansible_host) }}"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
