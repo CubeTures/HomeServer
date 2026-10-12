@@ -1,0 +1,6 @@
+- resources:
+    cpu: true
+    memory: true
+- datetime:
+    format:
+      timeStyle: short

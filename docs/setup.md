@@ -2,6 +2,16 @@
 
 Use this file to guide the setup of the local system before running playbooks.
 
+## Proxmox
+
+// TODO
+
+## Ansible
+
+```bash
+apt install ansible
+```
+
 ## Docker
 
 Install docker on the server using [their guides](https://docs.docker.com/engine/install/).

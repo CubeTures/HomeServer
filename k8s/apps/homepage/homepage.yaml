@@ -1,0 +1,71 @@
+# Landing page for the server: https://gethomepage.dev/
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homepage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+        - name: homepage
+          image: ghcr.io/gethomepage/homepage:v2.5.0
+          env:
+            # Required by Homepage; tighten to <node-ip>:30081 once there's a stable hostname.
+            - name: HOMEPAGE_ALLOWED_HOSTS
+              value: "*"
+            # Lets services.yaml link to other NodePorts via {{HOMEPAGE_VAR_NODE_IP}}.
+            - name: HOMEPAGE_VAR_NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            # Mount files individually so Homepage can still write its other defaults + logs.
+            - name: config
+              mountPath: /app/config/settings.yaml
+              subPath: settings.yaml
+            - name: config
+              mountPath: /app/config/services.yaml
+              subPath: services.yaml
+            - name: config
+              mountPath: /app/config/bookmarks.yaml
+              subPath: bookmarks.yaml
+            - name: config
+              mountPath: /app/config/widgets.yaml
+              subPath: widgets.yaml
+            - name: logs
+              mountPath: /app/config/logs
+      volumes:
+        - name: config
+          configMap:
+            name: homepage-config
+        - name: logs
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  type: NodePort # exposed on <node-ip>:30081, no ingress needed
+  selector:
+    app: homepage
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30081
