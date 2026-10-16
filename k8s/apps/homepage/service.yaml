@@ -3,10 +3,6 @@ kind: Service
 metadata:
   name: homepage
   namespace: homepage
-  annotations:
-    # Tailscale operator gives this Service its own tailnet device.
-    tailscale.com/expose: "true"
-    tailscale.com/hostname: homepage
 spec:
   type: NodePort
   selector:
