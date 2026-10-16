@@ -1,4 +1,0 @@
-- Testing:
-    - whoami:
-        href: http://{{HOMEPAGE_VAR_NODE_IP}}:30080
-        description: Cluster smoke test

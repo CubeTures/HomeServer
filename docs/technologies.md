@@ -78,7 +78,6 @@
     - Immich Machine Learning
 - Restic Rest Server
 - Obsidian Livesync
-    - Replace with Affine?
 - RomM
     - Postgres
 - Vaultwarden

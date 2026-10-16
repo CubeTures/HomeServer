@@ -32,8 +32,9 @@ Run `ansible/local.sh`
 Useful commands once setup:
 
 ```bash
-ssh cube@<ip>
 virsh shutdown k3s # stop it and free the 4 GB of RAM
 virsh start k3s
 virsh list --all
+ssh cube@<ip>
+flux reconcile kustomization apps --with-source
 ```
