@@ -1,0 +1,58 @@
+# Puts the VM itself on the tailnet as "k3s" (all NodePorts + SSH), separate from the operator.
+# hostNetwork means tailscaled runs in the node's network stack, not a pod's.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node
+  namespace: tailscale
+spec:
+  selector:
+    matchLabels:
+      app: tailscale-node
+  template:
+    metadata:
+      labels:
+        app: tailscale-node
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: tailscale
+          image: ghcr.io/tailscale/tailscale:v1.104.1
+          env:
+            - name: TS_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: operator-oauth
+                  key: client_secret
+            # An OAuth client secret works as an auth key when the device is tagged.
+            - name: TS_AUTHKEY
+              value: "$(TS_OAUTH_CLIENT_SECRET)?ephemeral=false&preauthorized=true"
+            - name: TS_EXTRA_ARGS
+              value: --advertise-tags=tag:k8s
+            - name: TS_HOSTNAME
+              value: k3s
+            # Kernel networking so traffic lands on the host's interfaces.
+            - name: TS_USERSPACE
+              value: "false"
+            # Keep state on disk instead of a kube Secret (no RBAC needed).
+            - name: TS_KUBE_SECRET
+              value: ""
+            - name: TS_STATE_DIR
+              value: /var/lib/tailscale
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: state
+              mountPath: /var/lib/tailscale
+            - name: tun
+              mountPath: /dev/net/tun
+      volumes:
+        - name: state
+          hostPath:
+            path: /var/lib/tailscale-k3s
+            type: DirectoryOrCreate
+        - name: tun
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice

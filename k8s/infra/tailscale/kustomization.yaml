@@ -6,3 +6,4 @@ resources:
   - operator-oauth.sops.yaml
   - helmrepository.yaml
   - helmrelease.yaml
+  - node.yaml
