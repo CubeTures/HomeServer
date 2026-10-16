@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: sops/sops.sh <sops args...>
-# e.g. sops/sops.sh edit ansible/group_vars/all.sops.yml
+# e.g. sops/sops.sh edit path/to/file.sops.yml
 
 sops_dir="$(cd "$(dirname "$0")" && pwd)"
 repo_dir="$(dirname "$sops_dir")"

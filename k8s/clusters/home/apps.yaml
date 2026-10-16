@@ -4,6 +4,8 @@ metadata:
   name: apps
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: infra
   interval: 10m
   path: ./k8s/apps
   prune: true

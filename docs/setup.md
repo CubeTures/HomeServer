@@ -29,14 +29,3 @@ age-keygen -y age.key > age.pub
 ```
 
 > Write the age.pub to .sops.yaml
-
-## GitHub Access Token
-
-- Profile > Settings > Developer Settings > Fine-grained Tokens > Generate new token
-- Repository access > home-server
-- Add permissions
-    - Administration (read & write)
-    - Content (read & write)
-    - Metadata (read)
-
-> The token is only used during bootstrap so the expiration only needs to exist until then
