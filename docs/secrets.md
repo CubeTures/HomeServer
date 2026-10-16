@@ -19,21 +19,16 @@ flux_github_token: ""
 
 > The token is only used during bootstrap so the expiration only needs to exist until then
 
-### `k8s/infra/tailscale/operator-oauth.sops.yaml`
+### `k8s/infra/tailscale/auth.sops.yaml`
 
 ```yml
 stringData:
-    client_id: ""
     client_secret: ""
 ```
 
-#### Tailscale OAuth Credentials
+#### Tailscale OAuth Credential
 
-- Access Controls > Definitions > Tags > Create Tags
-    - `k8s-operator`, no owner
-    - `k8s`, owner `k8s operator`
+- Access Controls > Definitions > Tags > Create Tag
+    - `home`, owner `autogroup:admin`
 - Settings > Trust Credentials > New Credential
-    - Write permission with the `k8s-operator` tag
-        - General: Services
-        - Devices: Core
-        - Keys: Auth Keys
+    - Keys: Auth Keys (write) + `tag:home`
