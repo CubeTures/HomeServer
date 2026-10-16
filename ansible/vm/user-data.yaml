@@ -1,9 +1,8 @@
 #cloud-config
 hostname: k3s
 users:
-
-- name: cube
-  sudo: ALL=(ALL) NOPASSWD:ALL
-  shell: /bin/bash
-  ssh_authorized_keys:
-    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKj5gChxpbYrzo7y+FH9PoO+eZNnochcH4SGKVfF5si+
+  - name: cube
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKj5gChxpbYrzo7y+FH9PoO+eZNnochcH4SGKVfF5si+

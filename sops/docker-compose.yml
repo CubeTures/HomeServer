@@ -6,5 +6,4 @@ services:
     environment:
       - HOME=/tmp
     volumes:
-      - ${SOPS_DIR}/age.pub:/age.pub:ro
-      - ${SOPS_DIR}/age.key:/age.key:ro
+      - ./age.key:/age.key:ro

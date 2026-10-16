@@ -3,7 +3,7 @@ set -euo pipefail
 export LIBVIRT_DEFAULT_URI=qemu:///system
 cd "$(dirname "$0")"
 
-NAME=k3s
+NAME=home-dev
 DIR=/var/lib/libvirt/images
 BASE=$DIR/debian-13-genericcloud-amd64.qcow2
 

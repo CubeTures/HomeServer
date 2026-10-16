@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: homepage
-  namespace: homepage
 spec:
   replicas: 1
   selector:
@@ -20,15 +19,10 @@ spec:
             # Required by Homepage; tighten to <node-ip>:30000 once there's a stable hostname.
             - name: HOMEPAGE_ALLOWED_HOSTS
               value: "*"
-            # Lets services.yaml link to other NodePorts via {{HOMEPAGE_VAR_NODE_IP}}.
-            - name: HOMEPAGE_VAR_NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
           ports:
             - containerPort: 3000
           volumeMounts:
-            # Mount files individually so Homepage can still write its other defaults + logs.
+            # mount individually because homepage writes other files to /app/config
             - name: config
               mountPath: /app/config/settings.yaml
               subPath: settings.yaml
