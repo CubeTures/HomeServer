@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+spec:
+  replicas: 1
+  # Two pods must never share the config database, even briefly during a rollout.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: jellyfin
+          image: jellyfin/jellyfin:12.2.20261005-225228
+          ports:
+            - containerPort: 8096
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: cache
+              mountPath: /cache
+            - name: media
+              mountPath: /media
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8096
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        # Transcodes and image cache; safe to lose.
+        - name: cache
+          emptyDir: {}
+        # Swap for the real media dataset once storage exists.
+        - name: media
+          hostPath:
+            path: /srv/media
+            type: DirectoryOrCreate

@@ -10,23 +10,9 @@
     - https://www.proxmox.com/en/
     - Easily spin up multiple VMs
     - Great for ansible and messing around
-- Headless Debian
-    - Simple OS with apt support
-- Ansible
-    - install via apt
-    - Set up config files on how to configure the VM
-- k3s
-    - https://k3s.io/
-    - Lightweight k8s targeted for a single node
-- Flux
-    - https://fluxcd.io/
-    - CD for k8s
 
 #### Services
 
-- Homepage
-    - https://gethomepage.dev/
-    - Clean landing page for app access and stats
 - GitHub Runner
     - https://github.com/myoung34/docker-github-actions-runner
     - For CI/CD builds of custom apps
@@ -66,8 +52,6 @@
 
 #### Services
 
-- Tailscale
-- Jellyfin
 - VGMDJ
 - FlareSolverr
 - Immich
@@ -97,3 +81,4 @@
 - Tailscale
 - Homepage
 - CloudNativePG
+- Jellyfin
