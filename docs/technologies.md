@@ -1,3 +1,5 @@
+# Technologies
+
 ## Future Technologies
 
 ### Definitely Use
@@ -45,9 +47,6 @@
 - Reloader
     - https://github.com/stakater/Reloader
     - Only if Flux doesn't already cover this
-- CloudNativePG
-    - https://cloudnative-pg.io/
-    - Config declaration of dbs and users
 - Cloudflared
     - https://github.com/cloudflare/cloudflared
     - Tunneling without port forwarding
@@ -88,3 +87,13 @@
 
 - Registry
     - Might be built in to Flux
+
+## Using
+
+- Debian
+- Ansible
+- k3s
+- Flux
+- Tailscale
+- Homepage
+- CloudNativePG

@@ -1,4 +1,4 @@
-# Config
+# Secrets
 
 After following [docs/setup.md](setup.md), use this guide to create the secrets files for the repo.
 

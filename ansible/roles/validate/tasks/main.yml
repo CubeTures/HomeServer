@@ -1,0 +1,35 @@
+- name: Get k8s version
+  ansible.builtin.uri:
+    url: https://dl.k8s.io/release/stable.txt
+    return_content: true
+  register: k8s_ver
+
+- name: Install kubectl
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/{{ k8s_ver.content | trim }}/bin/linux/amd64/kubectl"
+    checksum: "sha256:https://dl.k8s.io/release/{{ k8s_ver.content | trim }}/bin/linux/amd64/kubectl.sha256"
+    dest: /usr/local/bin/kubectl
+    mode: "0755"
+
+- name: Install kubeconform
+  ansible.builtin.unarchive:
+    src: https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - kubeconform
+    creates: /usr/local/bin/kubeconform
+
+- name: Install yq
+  ansible.builtin.get_url:
+    url: https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+    dest: /usr/local/bin/yq
+    mode: "0755"
+
+- name: Install flux
+  ansible.builtin.shell: set -o pipefail && curl -fsSL https://fluxcd.io/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/flux
+  environment:
+    FLUX_VERSION: "{{ flux_version }}"

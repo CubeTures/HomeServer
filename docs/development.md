@@ -25,7 +25,8 @@ sudo wget -O /var/lib/libvirt/images/debian-13-genericcloud-amd64.qcow2 \
 
 ## Create VM
 
-Run `ansible/local.sh`
+- Run `cd ansible && ansible-playbook local.yml -K` to create the VM
+    - `-e vm_rebuild=true` to destroy and recreate it
 
 ## Commands
 
@@ -38,3 +39,8 @@ virsh list --all
 ssh cube@<ip>
 flux reconcile kustomization apps --with-source
 ```
+
+## Testing
+
+- Run `cd ansible && ansible-playbook local.yml -K` to install the dependencies
+- Run `tests/check.sh` to validate
