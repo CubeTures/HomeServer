@@ -15,8 +15,8 @@ vm_rebuild: false
 vm_libvirt_uri: qemu:///system
 vm_image_dir: /var/lib/libvirt/images
 vm_base_image: "{{ vm_image_dir }}/debian-13-genericcloud-amd64.qcow2"
-vm_disk_size: 20G
-vm_memory: 4096
+vm_disk_size: 40G
+vm_memory: 6144
 vm_vcpus: 2
 
 sops_age_key_file: "{{ playbook_dir }}/../sops/age.key"

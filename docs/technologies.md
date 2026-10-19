@@ -38,9 +38,6 @@
 
 #### Services
 
-- VictoriaMetrics, VictoriaLogs
-    - https://github.com/VictoriaMetrics
-    - For server metrics and logs
 - ntfy
     - https://ntfy.sh/
     - Push notifications
@@ -70,3 +67,4 @@
 - CloudNativePG
 - Jellyfin
 - Immich
+- VictoriaMetrics, VictoriaLogs

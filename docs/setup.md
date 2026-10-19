@@ -22,6 +22,7 @@ This playbook holds two different roles which install local tools for developmen
     - Installs the required tools to be able to run `validate.sh`
 - VM
     - Creates and configures a `virsh` vm for development
+	- Recreate the vm using `-e vm_rebuild=true`
 
 ```bash
 cd ansible && ansible-playbook local.yml -K --tags <playbook>
