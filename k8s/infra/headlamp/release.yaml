@@ -12,6 +12,9 @@ spec:
         kind: HelmRepository
         name: headlamp
   values:
+    serviceAccount:
+      create: false
+      name: headlamp
     service:
       type: NodePort
       nodePort: 30400

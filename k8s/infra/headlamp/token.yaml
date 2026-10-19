@@ -1,4 +1,8 @@
-# Long-lived login token for the chart's cluster-admin service account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: headlamp
+---
 apiVersion: v1
 kind: Secret
 metadata:
