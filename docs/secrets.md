@@ -33,7 +33,19 @@ stringData:
 - Settings > Trust Credentials > New Credential
     - Keys: Auth Keys (write) + `tag:home`
 
+### `k8s/apps/vgmdj/secrets.sops.yaml`
+
+See https://github.com/CubeTures/VGMDJ/blob/main/SETUP.md
+
+```yml
+stringData:
+	JELLYFIN_USER_ID: ""
+	JELLYFIN_TOKEN: ""
+```
+
 ### headlamp
+
+// TODO
 
 ```bash
 kubectl -n headlamp get secret headlamp-token \

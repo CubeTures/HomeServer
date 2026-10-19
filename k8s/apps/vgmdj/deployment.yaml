@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vgmdj
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: vgmdj
+  template:
+    metadata:
+      labels:
+        app: vgmdj
+    spec:
+      containers:
+        - name: vgmdj
+          image: ghcr.io/cubetures/vgmdj:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: vgmdj-secrets
+          env:
+            - name: JELLYFIN_URL
+              value: http://jellyfin.jellyfin.svc.cluster.local:8096
+            - name: FLARESOLVERR_URL
+              value: http://flaresolverr.flaresolverr.svc.cluster.local:8191/v1
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: tmp
+              mountPath: /tmp
+            - name: music
+              mountPath: /music
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: vgmdj-config
+        - name: tmp
+          emptyDir:
+            sizeLimit: 25Gi
+        # FIXME add real media path
+        - name: music
+          hostPath:
+            path: /srv/media/music
+            type: DirectoryOrCreate

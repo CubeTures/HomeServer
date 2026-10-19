@@ -48,13 +48,13 @@
 
 #### Services
 
-- VGMDJ
-- FlareSolverr
 - Restic Rest Server
 - Obsidian Livesync
 - RomM
     - Postgres
 - Vaultwarden
+- Daily Games
+- Cloudflared
 
 ## Using
 
@@ -68,3 +68,5 @@
 - Jellyfin
 - Immich
 - Headlamp
+- VGMDJ
+- FlareSolverr

@@ -4,7 +4,6 @@ metadata:
   name: jellyfin
 spec:
   replicas: 1
-  # Two pods must never share the config database, even briefly during a rollout.
   strategy:
     type: Recreate
   selector:
@@ -45,10 +44,9 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: jellyfin-config
-        # Transcodes and image cache; safe to lose.
         - name: cache
           emptyDir: {}
-        # Swap for the real media dataset once storage exists.
+        # FIXME add real media path
         - name: media
           hostPath:
             path: /srv/media
