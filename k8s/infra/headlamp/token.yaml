@@ -1,0 +1,8 @@
+# Long-lived login token for the chart's cluster-admin service account
+apiVersion: v1
+kind: Secret
+metadata:
+  name: headlamp-token
+  annotations:
+    kubernetes.io/service-account.name: headlamp
+type: kubernetes.io/service-account-token

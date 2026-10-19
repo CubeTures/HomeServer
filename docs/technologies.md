@@ -67,4 +67,4 @@
 - CloudNativePG
 - Jellyfin
 - Immich
-- VictoriaMetrics, VictoriaLogs
+- Headlamp

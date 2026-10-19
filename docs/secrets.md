@@ -32,3 +32,10 @@ stringData:
     - `home`, owner `autogroup:admin`
 - Settings > Trust Credentials > New Credential
     - Keys: Auth Keys (write) + `tag:home`
+
+### headlamp
+
+```bash
+kubectl -n headlamp get secret headlamp-token \
+  -o jsonpath='{.data.token}' | base64 -d; echo
+```
