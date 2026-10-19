@@ -2,12 +2,12 @@
   ansible.builtin.uri:
     url: https://dl.k8s.io/release/stable.txt
     return_content: true
-  register: k8s_ver
+  register: validate_k8s_ver
 
 - name: Install kubectl
   ansible.builtin.get_url:
-    url: "https://dl.k8s.io/release/{{ k8s_ver.content | trim }}/bin/linux/amd64/kubectl"
-    checksum: "sha256:https://dl.k8s.io/release/{{ k8s_ver.content | trim }}/bin/linux/amd64/kubectl.sha256"
+    url: "https://dl.k8s.io/release/{{ validate_k8s_ver.content | trim }}/bin/linux/amd64/kubectl"
+    checksum: "sha256:https://dl.k8s.io/release/{{ validate_k8s_ver.content | trim }}/bin/linux/amd64/kubectl.sha256"
     dest: /usr/local/bin/kubectl
     mode: "0755"
 
@@ -33,3 +33,22 @@
     creates: /usr/local/bin/flux
   environment:
     FLUX_VERSION: "{{ flux_version }}"
+
+- name: Download flate
+  ansible.builtin.get_url:
+    url: "https://github.com/home-operations/flate/releases/download/v{{ flate_version }}/flate_{{ flate_version }}_linux_amd64.tar.gz"
+    checksum: "sha256:https://github.com/home-operations/flate/releases/download/v{{ flate_version }}/flate_{{ flate_version }}_linux_amd64.tar.gz.sha256"
+    dest: "/tmp/flate_{{ flate_version }}.tar.gz"
+    mode: "0644"
+
+- name: Install flate
+  ansible.builtin.unarchive:
+    src: "/tmp/flate_{{ flate_version }}.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - flate
+
+- name: Install ansible-lint
+  ansible.builtin.apt:
+    name: ansible-lint

@@ -8,6 +8,8 @@ flux_branch: main
 flux_path: k8s/clusters/home
 # flux_github_token # all.sops.yml
 
+flate_version: "0.6.5"
+
 vm_name: k3s
 vm_rebuild: false
 vm_libvirt_uri: qemu:///system

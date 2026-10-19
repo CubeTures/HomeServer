@@ -14,11 +14,17 @@ apt install ansible
 
 ## Docker
 
+// TODO make this a part of the ansible local
+// and split up local to different flags
+
 Install docker on the server using [their guides](https://docs.docker.com/engine/install/).
 
 > `sudo usermod -aG docker $USER` and re-login to grant non-root docker perms.
 
 ## SOPS and age
+
+// TODO make this a part of the ansible local
+// and split up local to different flags
 
 `sops/age.key` and `sops/age.pub`
 

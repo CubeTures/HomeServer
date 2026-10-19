@@ -4,5 +4,7 @@
   gather_facts: false
   become: true
   roles:
-    - vm
-    - validate
+    - role: vm
+      tags: vm
+    - role: validate
+      tags: validate

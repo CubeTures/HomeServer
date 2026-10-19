@@ -17,22 +17,29 @@ validate() {
     -schema-location default -schema-location "$CRD_SCHEMAS"
 }
 
-# Each Flux Kustomization in the cluster points at a path to render
+# Each Flux Kustomization in the cluster points at a path, which the diff below needs
 
 clusters=clusters/home
 mapfile -t names < <(yq -N '.metadata.name' $clusters/*.yaml)
 mapfile -t paths < <(yq -N '.spec.path' $clusters/*.yaml)
 
-echo "== $clusters"
-validate $clusters/*.yaml
+# Renders every Flux Kustomization and HelmRelease offline, as Flux would apply them
+echo "== flate test"
+flate test all --path "$clusters"
 
-echo "== $clusters/flux-system"
-kubectl kustomize $clusters/flux-system | validate
+echo "== flate build"
+flate build all --path "$clusters" | validate
 
-for path in "${paths[@]}"; do
-  echo "== ${path#./k8s/}"
-  kubectl kustomize "${path#./k8s/}" | validate
-done
+# flate never emits SOPS-encrypted files, so check their structure directly
+echo "== sops"
+mapfile -t sops_files < <(find . -name '*.sops.yaml')
+if (( ${#sops_files[@]} )); then
+  validate "${sops_files[@]}"
+fi
+
+# Also syntax-checks every playbook; ansible-lint 6.x (apt) only finds the config automatically when it has no .yml extension
+echo "== ansible-lint"
+(cd "$repo_dir/ansible" && ansible-lint -c .ansible-lint.yml)
 
 # Server-side dry-run against the live cluster; changes are expected, so this only reports them
 

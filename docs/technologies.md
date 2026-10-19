@@ -36,6 +36,8 @@
 - Cloudflared
     - https://github.com/cloudflare/cloudflared
     - Tunneling without port forwarding
+- DNS Server
+    - For resolving nested subdomains on tailscale?
 
 #### Services
 
@@ -54,11 +56,6 @@
 
 - VGMDJ
 - FlareSolverr
-- Immich
-    - Postgres
-    - Redis
-    - Immich Server
-    - Immich Machine Learning
 - Restic Rest Server
 - Obsidian Livesync
 - RomM
@@ -82,3 +79,4 @@
 - Homepage
 - CloudNativePG
 - Jellyfin
+- Immich
