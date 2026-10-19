@@ -1,6 +1,6 @@
 # Setup
 
-Use this file to guide the setup of the local system before running playbooks.
+Use this file to guide the setup of the local system before running playbooks and then understand what each playbook does.
 
 ## Proxmox
 
@@ -12,19 +12,30 @@ Use this file to guide the setup of the local system before running playbooks.
 apt install ansible
 ```
 
-## Docker
+### Playbooks
 
-// TODO make this a part of the ansible local
-// and split up local to different flags
+#### Local
 
-Install docker on the server using [their guides](https://docs.docker.com/engine/install/).
+This playbook holds two different roles which install local tools for development.
 
-> `sudo usermod -aG docker $USER` and re-login to grant non-root docker perms.
+- Validate
+    - Installs the required tools to be able to run `validate.sh`
+- VM
+    - Creates and configures a `virsh` vm for development
+
+```bash
+cd ansible && ansible-playbook local.yml -K --tags <playbook>
+```
+
+#### Server
+
+This playbook set up the required technologies for the server to run.
+
+```bash
+cd ansible && ansible-playbook server.yml
+```
 
 ## SOPS and age
-
-// TODO make this a part of the ansible local
-// and split up local to different flags
 
 `sops/age.key` and `sops/age.pub`
 
@@ -34,4 +45,4 @@ age-keygen -o age.key
 age-keygen -y age.key > age.pub
 ```
 
-> Write the age.pub to .sops.yaml
+> Add the age.pub to .sops.yaml

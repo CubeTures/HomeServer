@@ -13,9 +13,6 @@
 
 #### Services
 
-- GitHub Runner
-    - https://github.com/myoung34/docker-github-actions-runner
-    - For CI/CD builds of custom apps
 - Some backup service
     - https://www.backblaze.com/cloud-storage
     - Blackblaze B2
@@ -61,13 +58,6 @@
 - RomM
     - Postgres
 - Vaultwarden
-
-### Possibly Use
-
-#### Services
-
-- Registry
-    - Might be built in to Flux
 
 ## Using
 
