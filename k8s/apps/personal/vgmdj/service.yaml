@@ -8,4 +8,4 @@ spec:
     app: vgmdj
   ports:
     - port: 8000
-      nodePort: 38635
+      nodePort: 30635
