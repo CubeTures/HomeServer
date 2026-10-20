@@ -19,7 +19,7 @@ apt install ansible
 This playbook holds two different roles which install local tools for development.
 
 - Validate
-    - Installs the required tools to be able to run `validate.sh`
+    - Installs the required tools to be able to run the scripts in `tests/`
 - VM
     - Creates and configures a `virsh` vm for development
 	- Recreate the vm using `-e vm_rebuild=true`

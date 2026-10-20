@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-repo_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_dir="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_dir/k8s"
 
 export KUBECONFIG="$repo_dir/ansible/kubeconfig/k3s.yaml"
@@ -36,10 +36,6 @@ mapfile -t sops_files < <(find . -name '*.sops.yaml')
 if (( ${#sops_files[@]} )); then
   validate "${sops_files[@]}"
 fi
-
-# Also syntax-checks every playbook; ansible-lint 6.x (apt) only finds the config automatically when it has no .yml extension
-echo "== ansible-lint"
-(cd "$repo_dir/ansible" && ansible-lint -c .ansible-lint.yml)
 
 # Server-side dry-run against the live cluster; changes are expected, so this only reports them
 

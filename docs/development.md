@@ -44,4 +44,4 @@ kubectl -n <namespace> rollout restart # update secrets
 ## Testing
 
 - Run `cd ansible && ansible-playbook local.yml -K` to install the dependencies
-- Run `tests/check.sh` to validate
+- Run `tests/validate-k8s.sh` and `tests/validate-ansible.sh` to validate
