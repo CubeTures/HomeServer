@@ -26,8 +26,7 @@ spec:
             - name: restic-server-data
               mountPath: /data
           readinessProbe:
-            httpGet:
-              path: /healthz
+            tcpSocket:
               port: 8000
           resources:
             requests:
