@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: daily
-          image: ghcr.io/cubetures/daily:latest
+          image: ghcr.io/cubetures/dailygamesbot:latest
           ports:
             - containerPort: 8080
           envFrom:
