@@ -15,4 +15,5 @@ A custom home server built with kubernetes.
 - Fill out homepage
 - Migrate services
 - Fill out per-app docs
+- Fill out runbook recovery docs
 - Fill out technologies docs

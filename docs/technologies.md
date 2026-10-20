@@ -28,8 +28,10 @@
 - Some backup service
     - https://www.backblaze.com/cloud-storage
     - Blackblaze B2
-- Tofu Controller
-    - https://github.com/flux-iac/tofu-controller
-    - Applying terraform in k8s
+- OpenTofu
+    - Create the Blackblaze backup location
+    - Create Cloudflare DNS and tunnel settings
+	- Encrypt state in git using passphrase
+		- Keep passphrase in git but sops encrypted
 - RomM or Games on Whales (Wolf)
     - Postgres
