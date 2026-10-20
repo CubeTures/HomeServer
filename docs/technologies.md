@@ -24,9 +24,6 @@
 - Tofu Controller
     - https://github.com/flux-iac/tofu-controller
     - Applying terraform in k8s
-- Cloudflared
-    - https://github.com/cloudflare/cloudflared
-    - Tunneling without port forwarding
 - DNS Server
     - For resolving nested subdomains on tailscale?
 
@@ -46,7 +43,6 @@
 - RomM
     - Postgres
 - Vaultwarden
-- Cloudflared
 
 ## Using
 
@@ -64,3 +60,4 @@
 - FlareSolverr
 - Obsidian LiveSync
 - Daily Games
+- Cloudflared
