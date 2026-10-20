@@ -35,12 +35,23 @@ stringData:
 
 ### `k8s/apps/personal/vgmdj/secrets.sops.yaml`
 
-See https://github.com/CubeTures/VGMDJ/blob/main/SETUP.md
+See [VGMDJ/SETUP.md](https://github.com/CubeTures/VGMDJ/blob/main/SETUP.md)
 
 ```yml
 stringData:
 	JELLYFIN_USER_ID: ""
 	JELLYFIN_TOKEN: ""
+```
+
+### `k8s/apps/personal/daily/secrets.sops.yaml`
+
+See [DailyGamesBot/SETUP.md](https://github.com/CubeTures/DailyGamesBot/blob/main/SETUP.md)
+
+```yml
+stringData:
+    DISCORD_BOT_TOKEN: ""
+    DISCORD_RESULTS_CHANNEL_ID: ""
+    DGB_PUBLIC_URL: ""
 ```
 
 ### `k8s/apps/obsidian-livesync/secrets.sops.yaml`

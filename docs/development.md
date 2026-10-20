@@ -33,11 +33,12 @@ sudo wget -O /var/lib/libvirt/images/debian-13-genericcloud-amd64.qcow2 \
 Useful commands once setup:
 
 ```bash
-virsh shutdown k3s # stop it and free the 4 GB of RAM
+virsh shutdown k3s
 virsh start k3s
 virsh list --all
 ssh cube@<ip>
 flux reconcile kustomization apps --with-source
+kubectl -n <namespace> rollout restart # update secrets
 ```
 
 ## Testing

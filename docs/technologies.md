@@ -16,9 +16,6 @@
 - Some backup service
     - https://www.backblaze.com/cloud-storage
     - Blackblaze B2
-- Pocket ID
-    - https://pocket-id.org/
-    - IdP but passkeys (no more passwords!)
 
 ### Possibly Use
 
@@ -27,9 +24,6 @@
 - Tofu Controller
     - https://github.com/flux-iac/tofu-controller
     - Applying terraform in k8s
-- Reloader
-    - https://github.com/stakater/Reloader
-    - Only if Flux doesn't already cover this
 - Cloudflared
     - https://github.com/cloudflare/cloudflared
     - Tunneling without port forwarding
@@ -52,7 +46,6 @@
 - RomM
     - Postgres
 - Vaultwarden
-- Daily Games
 - Cloudflared
 
 ## Using
@@ -70,3 +63,4 @@
 - VGMDJ
 - FlareSolverr
 - Obsidian LiveSync
+- Daily Games

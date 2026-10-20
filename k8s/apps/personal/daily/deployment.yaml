@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daily
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: daily
+  template:
+    metadata:
+      labels:
+        app: daily
+    spec:
+      containers:
+        - name: daily
+          image: ghcr.io/cubetures/daily:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: daily-secrets
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          # TODO
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 8080
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: daily-data
