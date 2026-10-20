@@ -33,6 +33,22 @@ stringData:
 - Settings > Trust Credentials > New Credential
     - Keys: Auth Keys (write) + `tag:home`
 
+### `k8s/infra/cloudflared/token.sops.yaml`
+
+// NOTE to disappear with cloudflare terraform
+
+```yml
+stringData:
+    token: ""
+```
+
+#### Cloudflare Tunnel Token
+
+- Zero Trust > Networks > Tunnels > Create Tunnel
+    - Copy the token from the install command (`--token <token>`)
+- Add Route > Published application
+    - Service URL: `http://<service>.<namespace>.svc.cluster.local:<container port>`
+
 ### `k8s/apps/personal/vgmdj/secrets.sops.yaml`
 
 See [VGMDJ/SETUP.md](https://github.com/CubeTures/VGMDJ/blob/main/SETUP.md)

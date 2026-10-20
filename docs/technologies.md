@@ -24,8 +24,6 @@
 - Tofu Controller
     - https://github.com/flux-iac/tofu-controller
     - Applying terraform in k8s
-- DNS Server
-    - For resolving nested subdomains on tailscale?
 
 #### Services
 
