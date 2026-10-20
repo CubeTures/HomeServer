@@ -1,0 +1,10 @@
+# root path from k3s default-local-storage-path
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-data
+provisioner: rancher.io/local-path
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  pathPattern: "{{ .PVC.Namespace }}/{{ .PVC.Name }}/"

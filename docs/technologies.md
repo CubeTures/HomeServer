@@ -49,7 +49,6 @@
 #### Services
 
 - Restic Rest Server
-- Obsidian Livesync
 - RomM
     - Postgres
 - Vaultwarden
@@ -70,3 +69,4 @@
 - Headlamp
 - VGMDJ
 - FlareSolverr
+- Obsidian LiveSync

@@ -13,7 +13,7 @@ spec:
       database: immich
       owner: immich
   storage:
-    storageClass: local-path
+    storageClass: local-data
     size: 10Gi
   resources:
     requests:

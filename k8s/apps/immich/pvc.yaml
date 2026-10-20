@@ -1,11 +1,30 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-gallery
+spec:
+  capacity:
+    storage: 512Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    namespace: immich
+    name: immich
+  hostPath:
+    path: /data/gallery
+    type: DirectoryOrCreate
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: immich
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-path
+  storageClassName: ""
+  volumeName: immich-gallery
   resources:
     requests:
       storage: 512Gi

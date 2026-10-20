@@ -46,8 +46,7 @@ spec:
             claimName: jellyfin-config
         - name: cache
           emptyDir: {}
-        # FIXME add real media path
         - name: media
           hostPath:
-            path: /srv/media
+            path: /data/media
             type: DirectoryOrCreate

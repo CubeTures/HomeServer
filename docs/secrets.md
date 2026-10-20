@@ -43,6 +43,14 @@ stringData:
 	JELLYFIN_TOKEN: ""
 ```
 
+### `k8s/apps/obsidian-livesync/secrets.sops.yaml`
+
+```yml
+stringData:
+    COUCHDB_USER: ""
+    COUCHDB_PASSWORD: ""
+```
+
 ### headlamp
 
 // TODO

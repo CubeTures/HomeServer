@@ -8,5 +8,7 @@ A custom home server built with kubernetes.
 
 ## TODO
 
-- Ansible playbooks for setup.md
-- Make volume binds for media and gallery
+- Make custom service for various homepage metrics
+	- Is flux/kustomize synchronized?
+		- "Behind 1 commit"
+		- "Force update"

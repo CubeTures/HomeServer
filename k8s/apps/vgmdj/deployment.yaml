@@ -50,8 +50,7 @@ spec:
         - name: tmp
           emptyDir:
             sizeLimit: 25Gi
-        # FIXME add real media path
         - name: music
           hostPath:
-            path: /srv/media/music
+            path: /data/media/music
             type: DirectoryOrCreate
