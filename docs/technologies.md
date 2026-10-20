@@ -1,47 +1,5 @@
 # Technologies
 
-## Future Technologies
-
-### Definitely Use
-
-#### Infra
-
-- ZFS Proxmox VE
-    - https://www.proxmox.com/en/
-    - Easily spin up multiple VMs
-    - Great for ansible and messing around
-
-#### Services
-
-- Some backup service
-    - https://www.backblaze.com/cloud-storage
-    - Blackblaze B2
-
-### Possibly Use
-
-#### Infra
-
-- Tofu Controller
-    - https://github.com/flux-iac/tofu-controller
-    - Applying terraform in k8s
-
-#### Services
-
-- ntfy
-    - https://ntfy.sh/
-    - Push notifications
-
-## Ported Technologies
-
-### Definitely Use
-
-#### Services
-
-- Restic Rest Server
-- RomM
-    - Postgres
-- Vaultwarden
-
 ## Using
 
 - Debian
@@ -59,3 +17,19 @@
 - Obsidian LiveSync
 - Daily Games
 - Cloudflared
+- Restic Rest Server
+
+## To Add
+
+- ZFS Proxmox VE
+    - https://www.proxmox.com/en/
+    - Easily spin up multiple VMs
+    - Great for ansible and messing around
+- Some backup service
+    - https://www.backblaze.com/cloud-storage
+    - Blackblaze B2
+- Tofu Controller
+    - https://github.com/flux-iac/tofu-controller
+    - Applying terraform in k8s
+- RomM or Games on Whales (Wolf)
+    - Postgres

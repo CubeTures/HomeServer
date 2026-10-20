@@ -9,6 +9,10 @@ A custom home server built with kubernetes.
 ## TODO
 
 - Make custom service for various homepage metrics
-	- Is flux/kustomize synchronized?
-		- "Behind 1 commit"
-		- "Force update"
+    - Is flux/kustomize synchronized?
+        - "Behind 1 commit"
+        - "Force update"
+- Fill out homepage
+- Migrate services
+- Fill out per-app docs
+- Fill out technologies docs
