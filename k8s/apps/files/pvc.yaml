@@ -1,0 +1,36 @@
+# Shared by both file browsers; RWO is fine since everything runs on one node
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: files-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-data
+  resources:
+    requests:
+      storage: 256Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: copyparty-state
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-data
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quantum-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-data
+  resources:
+    requests:
+      storage: 1Gi

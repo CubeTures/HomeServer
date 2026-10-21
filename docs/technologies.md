@@ -21,6 +21,12 @@
 
 ## To Add
 
+- File Browsers
+	- https://github.com/ 9001/copyparty
+	- https://github.com/gtsteffaniak/filebrowser
+	- https://github.com/mickael-kerjean/filestash
+	- https://github.com/error311/FileRise
+	- https://sftpgo.com/
 - ZFS Proxmox VE
     - https://www.proxmox.com/en/
     - Easily spin up multiple VMs

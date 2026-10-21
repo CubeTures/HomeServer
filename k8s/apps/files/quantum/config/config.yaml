@@ -1,0 +1,26 @@
+# Only reachable over Tailscale, so everyone gets full access without logging in
+http:
+  port: 8080
+server:
+  cacheDir: /home/filebrowser/cache
+  sources:
+    - path: /srv/files
+      name: files
+      config:
+        defaultEnabled: true
+    - path: /srv/media
+      name: media
+      config:
+        defaultEnabled: true
+        readOnly: true
+auth:
+  methods:
+    noauth: true
+userDefaults:
+  preview:
+    image: true
+    popup: true
+    video: true
+    audio: true
+    office: true
+    highQuality: true

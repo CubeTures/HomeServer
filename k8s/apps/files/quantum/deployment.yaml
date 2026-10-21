@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: quantum
+  template:
+    metadata:
+      labels:
+        app: quantum
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: quantum
+          image: gtstef/filebrowser:2.0.1-stable
+          env:
+            - name: FILEBROWSER_CONFIG
+              value: /home/filebrowser/config/config.yaml
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /home/filebrowser/config
+            # Holds the database at the image's default FILEBROWSER_DATABASE_PATH
+            - name: data
+              mountPath: /home/filebrowser/data
+            - name: cache
+              mountPath: /home/filebrowser/cache
+            - name: files
+              mountPath: /srv/files
+            - name: media
+              mountPath: /srv/media
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+          resources:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 1Gi
+      volumes:
+        - name: config
+          configMap:
+            name: quantum-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: quantum-data
+        # Thumbnails and the spool for zip downloads
+        - name: cache
+          emptyDir: {}
+        - name: files
+          persistentVolumeClaim:
+            claimName: files-data
+        - name: media
+          hostPath:
+            path: /data/media
+            type: DirectoryOrCreate
