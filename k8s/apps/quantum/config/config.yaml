@@ -3,24 +3,26 @@ http:
 server:
   cacheDir: /home/filebrowser/cache
   sources:
-    - path: /srv/media
-      name: media
-      config:
-        defaultEnabled: true
     - path: /srv/data
       name: data
       config:
         defaultEnabled: true
         readOnly: true
-        # Shown in the writable media source instead
         rules:
           - folderPath: /media
+    - path: /srv/media
+      name: media
+      config:
+        defaultEnabled: true
 auth:
   methods:
     noauth: true
 userDefaults:
+  sidebar:
+    sticky: false
   listing:
     showHidden: true
+    singleClick: true
   preview:
     image: true
     popup: true
