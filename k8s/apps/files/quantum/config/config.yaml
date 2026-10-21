@@ -4,8 +4,9 @@ http:
 server:
   cacheDir: /home/filebrowser/cache
   sources:
+    # A source named "files" breaks URLs two folders deep (gtsteffaniak/filebrowser#3143)
     - path: /srv/files
-      name: files
+      name: shared
       config:
         defaultEnabled: true
     - path: /srv/media
@@ -17,6 +18,8 @@ auth:
   methods:
     noauth: true
 userDefaults:
+  listing:
+    showHidden: true
   preview:
     image: true
     popup: true
