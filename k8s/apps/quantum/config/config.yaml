@@ -1,19 +1,20 @@
-# Only reachable over Tailscale, so everyone gets full access without logging in
 http:
   port: 8080
 server:
   cacheDir: /home/filebrowser/cache
   sources:
-    # A source named "files" breaks URLs two folders deep (gtsteffaniak/filebrowser#3143)
-    - path: /srv/files
-      name: shared
-      config:
-        defaultEnabled: true
     - path: /srv/media
       name: media
       config:
         defaultEnabled: true
+    - path: /srv/data
+      name: data
+      config:
+        defaultEnabled: true
         readOnly: true
+        # Shown in the writable media source instead
+        rules:
+          - folderPath: /media
 auth:
   methods:
     noauth: true

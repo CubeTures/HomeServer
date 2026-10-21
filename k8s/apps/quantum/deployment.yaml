@@ -29,16 +29,15 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /home/filebrowser/config
-            # Holds the database at the image's default FILEBROWSER_DATABASE_PATH
             - name: data
               mountPath: /home/filebrowser/data
             - name: cache
               mountPath: /home/filebrowser/cache
-            - name: files
-              mountPath: /srv/files
+            - name: host-data
+              mountPath: /srv/data
+              readOnly: true
             - name: media
               mountPath: /srv/media
-              readOnly: true
           readinessProbe:
             httpGet:
               path: /health
@@ -55,13 +54,13 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: quantum-data
-        # Thumbnails and the spool for zip downloads
         - name: cache
           emptyDir: {}
-        - name: files
-          persistentVolumeClaim:
-            claimName: files-data
+        - name: host-data
+          hostPath:
+            path: /data
+            type: Directory
         - name: media
           hostPath:
             path: /data/media
-            type: DirectoryOrCreate
+            type: Directory
