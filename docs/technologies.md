@@ -8,6 +8,7 @@
 - Flux
 - Tailscale
 - Homepage
+- Glances
 - CloudNativePG
 - Jellyfin
 - Immich

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glances
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glances
+  template:
+    metadata:
+      labels:
+        app: glances
+    spec:
+      hostPID: true
+      hostNetwork: true
+      containers:
+        - name: glances
+          image: nicolargo/glances:4.5.8
+          env:
+            - name: GLANCES_OPT
+              value: "-w --disable-webui"
+          ports:
+            - containerPort: 61208
+          volumeMounts:
+            - name: os-release
+              mountPath: /etc/os-release
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /api/4/status
+              port: 61208
+          resources:
+            requests:
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+      volumes:
+        - name: os-release
+          hostPath:
+            path: /etc/os-release
+            type: File

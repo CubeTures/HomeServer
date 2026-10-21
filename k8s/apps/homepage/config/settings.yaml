@@ -1,3 +1,12 @@
 title: Home Server
 theme: dark
 color: slate
+headerStyle: clean
+statusStyle: dot
+hideVersion: true
+useEqualHeights: true
+cardBlur: md
+background:
+  image: /images/background.jpg
+  blur: sm
+  brightness: 75
