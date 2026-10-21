@@ -14,10 +14,10 @@ spec:
       labels:
         app: quantum
     spec:
+      # root to read /data dirs
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
       containers:
         - name: quantum
           image: gtstef/filebrowser:2.0.1-stable
