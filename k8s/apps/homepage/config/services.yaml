@@ -1,72 +1,78 @@
 # yaml-language-server: $schema=none
 - Media:
     - Jellyfin:
-        icon: mdi-jellyfish-#ffffff
+        icon: sh-jellyfin-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30096
         namespace: jellyfin
         app: jellyfin
         podSelector: app=jellyfin
     - Immich:
-        icon: mdi-image-#ffffff
+        icon: sh-immich-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30283
         namespace: immich
         app: immich
         podSelector: app.kubernetes.io/instance=immich
     - VGMDJ:
-        icon: mdi-headphones-#ffffff
+        icon: /icons/vgmdj-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30635
         namespace: vgmdj
         app: vgmdj
         podSelector: app=vgmdj
 - Home:
     - Daily Games:
-        icon: mdi-weather-sunny-#ffffff
+        icon: /icons/daily-light.png
         href: https://daily.{{HOMEPAGE_VAR_DOMAIN}}
         namespace: daily
         app: daily
         podSelector: app=daily
     - Obsidian Sync:
-        icon: mdi-book-#ffffff
+        icon: sh-obsidian-light.png
         namespace: obsidian-livesync
         app: obsidian-livesync
         podSelector: app=couchdb
     - Restic Rest:
-        icon: mdi-umbrella-#ffffff
+        icon: /icons/restic-light.png
         namespace: restic-rest
         app: restic-rest
         podSelector: app=restic-rest
 - System:
     - Headlamp:
-        icon: mdi-lamp-#ffffff
+        icon: sh-headlamp-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30400
         namespace: headlamp
         app: headlamp
         podSelector: app.kubernetes.io/name=headlamp
     - Quantum:
-        icon: mdi-atom-#ffffff
+        icon: sh-filebrowser-quantum-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30080
         namespace: quantum
         app: quantum
         podSelector: app=quantum
+    - Glances:
+        icon: sh-glances-light.png
+        href: http://{{HOMEPAGE_VAR_TAILNET}}:30612
+        namespace: glances
+        app: glances
+        podSelector: app=glances
     - Cloudflared:
-        icon: mdi-cloud-#ffffff
+        icon: sh-cloudflare-light.png
         href: https://dash.cloudflare.com/
         namespace: cloudflared
         app: cloudflared
         podSelector: app=cloudflared
     - Tailscale:
-        icon: mdi-dots-grid-#ffffff
+        icon: sh-tailscale-light.png
         href: https://console.tailscale.com/
         namespace: tailscale
         app: tailscale
         podSelector: app=tailscale-node
     - CloudNativePG:
-        icon: mdi-elephant-#ffffff
+        icon: sh-cloudnativepg-light.png
         namespace: cnpg-system
         app: cnpg
         podSelector: app.kubernetes.io/name=cloudnative-pg
     - FlareSolverr:
-        icon: mdi-cursor-default-click-#ffffff
+        icon: sh-flaresolverr-light.png
         namespace: flaresolverr
         app: flaresolverr
         podSelector: app=flaresolverr

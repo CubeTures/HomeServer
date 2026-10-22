@@ -18,3 +18,11 @@ configMapGenerator:
       - config/custom.css
       - config/custom.js
       - config/background.jpg
+  - name: homepage-icons
+    files:
+      - config/icons/daily-dark.png
+      - config/icons/daily-light.png
+      - config/icons/restic-dark.png
+      - config/icons/restic-light.png
+      - config/icons/vgmdj-dark.png
+      - config/icons/vgmdj-light.png

@@ -51,11 +51,16 @@ spec:
             - name: config
               mountPath: /app/public/images/background.jpg
               subPath: background.jpg
+            - name: icons
+              mountPath: /app/public/icons
             - name: logs
               mountPath: /app/config/logs
       volumes:
         - name: config
           configMap:
             name: homepage-config
+        - name: icons
+          configMap:
+            name: homepage-icons
         - name: logs
           emptyDir: {}

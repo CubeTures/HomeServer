@@ -31,3 +31,25 @@ document.addEventListener(
   },
   true,
 );
+
+// Bookmarks show as bare icons in the footer row, opposite the refresh button. #bookmarks and
+// the footer are React's, so copy the rendered links into a container of our own rather than
+// moving nodes React still tracks; the observer re-syncs if either side re-renders.
+const syncBookmarks = () => {
+  const style = document.getElementById("style");
+  const links = document.querySelectorAll("#bookmarks .bookmark a");
+  if (!style || !links.length) return;
+  let container = document.getElementById("footer-bookmarks");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "footer-bookmarks";
+    style.prepend(container);
+  }
+  const html = Array.from(links, (link) => link.outerHTML).join("");
+  if (container.dataset.html === html) return;
+  container.dataset.html = html;
+  container.innerHTML = html;
+};
+
+new MutationObserver(syncBookmarks).observe(document.body, { childList: true, subtree: true });
+syncBookmarks();

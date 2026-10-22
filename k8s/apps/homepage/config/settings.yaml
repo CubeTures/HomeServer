@@ -5,6 +5,7 @@ headerStyle: clean
 statusStyle: dot
 hideVersion: true
 useEqualHeights: true
+bookmarksStyle: icons
 cardBlur: lg
 background:
   image: /images/background.jpg

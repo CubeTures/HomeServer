@@ -1,1 +1,4 @@
-[]
+- Projects:
+    - home-server:
+        - icon: sh-github-light.png
+          href: https://github.com/cubetures/home-server

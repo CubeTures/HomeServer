@@ -7,3 +7,4 @@ spec:
     app: glances
   ports:
     - port: 61208
+    - nodePort: 30612

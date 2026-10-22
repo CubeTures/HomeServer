@@ -21,7 +21,7 @@ spec:
           image: nicolargo/glances:4.5.8
           env:
             - name: GLANCES_OPT
-              value: "-w --disable-webui"
+              value: "-w"
           ports:
             - containerPort: 61208
           volumeMounts:

@@ -39,6 +39,14 @@ virsh list --all
 ssh cube@<ip>
 flux reconcile kustomization apps --with-source
 kubectl -n <namespace> rollout restart # update secrets
+
+flux suspend kustomization apps
+export KUBECONFIG="ansible/kubeconfig/k3s.yaml" && \
+	sops/sops.sh -d k8s/apps/homepage/secrets.sops.yaml | kubectl apply -n homepage -f - && \
+	kubectl kustomize k8s/apps/homepage | yq 'select(.kind != "Secret")' | kubectl apply --server-side --force-conflicts -f - && \
+	kubectl -n homepage rollout restart deploy/homepage && \
+	kubectl -n homepage rollout status deploy/homepage
+flux resume kustomization apps
 ```
 
 ## Testing
