@@ -48,16 +48,14 @@ spec:
             - name: config
               mountPath: /app/config/custom.js
               subPath: custom.js
-            - name: images
-              mountPath: /app/public/images
+            - name: config
+              mountPath: /app/public/images/background.jpg
+              subPath: background.jpg
             - name: logs
               mountPath: /app/config/logs
       volumes:
         - name: config
           configMap:
             name: homepage-config
-        - name: images
-          configMap:
-            name: homepage-images
         - name: logs
           emptyDir: {}

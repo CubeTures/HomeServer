@@ -7,7 +7,7 @@ hideVersion: true
 useEqualHeights: true
 cardBlur: lg
 background:
-  image: /background.jpg
+  image: /images/background.jpg
   blur: sm
   brightness: 75
 layout:
