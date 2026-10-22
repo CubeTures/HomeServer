@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: glances
 spec:
+  type: NodePort
   selector:
     app: glances
   ports:
     - port: 61208
-    - nodePort: 30612
+      nodePort: 30612
