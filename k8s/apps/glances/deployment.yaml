@@ -4,6 +4,8 @@ metadata:
   name: glances
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: glances
@@ -26,6 +28,9 @@ spec:
             - name: os-release
               mountPath: /etc/os-release
               readOnly: true
+            - name: host-root
+              mountPath: /host
+              readOnly: true
           readinessProbe:
             httpGet:
               path: /api/4/status
@@ -40,3 +45,6 @@ spec:
           hostPath:
             path: /etc/os-release
             type: File
+        - name: host-root
+          hostPath:
+            path: /

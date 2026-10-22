@@ -1,0 +1,108 @@
+/* The group's collapse wrapper is overflow:hidden, which clips tile shadows on the
+   outer edges; give the shadows room inside it without shifting the layout */
+.services-group > .overflow-hidden {
+	padding: 0 0.75rem 0.75rem;
+	margin: 0 -0.75rem -0.75rem;
+}
+
+.services-group:not(:first-child) {
+	margin-top: 8px;
+}
+
+/* Square tiles: big icon on top, name underneath */
+.services-list {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+	gap: 0.5rem;
+}
+
+.service-card {
+	display: flex;
+	flex-direction: column;
+	aspect-ratio: 1;
+	height: auto !important; /* override useEqualHeights */
+	margin: 0 !important;
+	/* background-color: oklab(0 0 0 / 0.2); */
+}
+
+/* Tiles without an href aren't clickable, so hold them at their resting (dark theme) colours */
+.service-card:not(:has(a[href])):hover {
+	background-color: rgb(255 255 255 / 0.05);
+	color: rgb(226 232 240);
+}
+
+/* Linked tiles get a dog-eared top-left corner. The clip polygon reaches
+   past the card's edges so it only cuts the corner, not the drop shadow */
+.service-card:has(a[href]) {
+	--dogear: 1.25rem;
+	clip-path: polygon(
+		-2rem calc(var(--dogear) + 2rem),
+		calc(var(--dogear) + 2rem) -2rem,
+		calc(100% + 2rem) -2rem,
+		calc(100% + 2rem) calc(100% + 2rem),
+		-2rem calc(100% + 2rem)
+	);
+}
+
+/* The folded-over flap */
+.service-card:has(a[href])::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--dogear);
+	height: var(--dogear);
+	background: linear-gradient(
+		to bottom right,
+		transparent 50%,
+		rgb(255 255 255 / 0.15) 50%
+	);
+	border-bottom-right-radius: 0.25rem;
+	filter: drop-shadow(1px 1px 2px rgb(0 0 0 / 0.3));
+}
+
+/* Icon + name centred as a group, nudged down a little (ZimaOS app card style) */
+.service-title {
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-top: 1.25rem;
+}
+
+.service-icon {
+	width: auto !important;
+}
+
+/* ResolvedIcon sets a 32px inline size */
+.service-icon > * {
+	width: 4rem !important;
+	height: 4rem !important;
+	border-radius: 0.75rem;
+	overflow: hidden;
+}
+
+.service-title-text {
+	flex: none;
+	justify-content: center;
+	max-width: 100%;
+}
+
+.service-name {
+	margin-top: 0.75rem;
+	padding: 0 0.5rem !important;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.service-description {
+	display: none;
+}
+
+/* Healthy status dots fade into the background; only problems stand out */
+.k8s-status > .bg-emerald-500 {
+	background-color: currentColor;
+	opacity: 0;
+}

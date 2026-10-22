@@ -1,6 +1,10 @@
-- resources:
+- glances:
+    url: http://glances.glances.svc:61208
+    version: 4
     cpu: true
-    memory: true
+    mem: true
+    disk: /host
+    uptime: true
 - datetime:
     format:
       timeStyle: short

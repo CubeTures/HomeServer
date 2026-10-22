@@ -3,6 +3,8 @@ kind: Kustomization
 namespace: homepage
 resources:
   - namespace.yaml
+  - secrets.sops.yaml
+  - rbac.yaml
   - deployment.yaml
   - service.yaml
 configMapGenerator:
@@ -12,4 +14,7 @@ configMapGenerator:
       - config/services.yaml
       - config/bookmarks.yaml
       - config/widgets.yaml
+      - config/kubernetes.yaml
+      - config/custom.css
+      - config/custom.js
       - config/background.jpg

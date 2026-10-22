@@ -5,8 +5,15 @@ headerStyle: clean
 statusStyle: dot
 hideVersion: true
 useEqualHeights: true
-cardBlur: md
+cardBlur: lg
 background:
-  image: /images/background.jpg
+  image: /background.jpg
   blur: sm
   brightness: 75
+layout:
+  Media:
+    style: row
+  Home:
+    style: row
+  System:
+    style: row
