@@ -1,7 +1,8 @@
 // Kubernetes status dot opens the tile's namespace in Headlamp's pods view instead of expanding pod stats.
 // Capture on document runs before React's root listener, so stopping here blocks the toggle.
-// custom.js isn't run through HOMEPAGE_VAR_ substitution, so borrow the tailnet host from the
-// tile's own href (built from {{HOMEPAGE_VAR_TAILNET}} in services.yaml).
+// custom.js isn't run through HOMEPAGE_VAR_ substitution, so borrow Headlamp's origin from its own
+// tile's href (built from {{HOMEPAGE_VAR_TAILNET}} in services.yaml). Other tiles' hrefs can point
+// off the tailnet (public domain, vendor dashboards), so they can't supply the host.
 
 // Prefetched so window.open stays synchronous with the click (async opens get popup-blocked)
 const namespaces = {};
@@ -23,11 +24,11 @@ document.addEventListener(
     event.preventDefault();
     event.stopPropagation();
     const tile = status.closest(".service");
-    const href = tile.querySelector("a[href]")?.href;
-    const host = href ? new URL(href).hostname : location.hostname;
+    const headlamp = document.querySelector('.service[data-name="Headlamp"] a[href]')?.href;
+    const origin = headlamp ? new URL(headlamp).origin : `http://${location.hostname}:30400`;
     const namespace = namespaces[tile.dataset.name];
     const view = namespace ? `pods?namespace=${encodeURIComponent(namespace)}` : "map?group=namespace";
-    window.open(`http://${host}:30400/c/main/${view}`, "_blank", "noopener");
+    window.open(`${origin}/c/main/${view}`, "_blank", "noopener");
   },
   true,
 );
@@ -53,3 +54,31 @@ const syncBookmarks = () => {
 
 new MutationObserver(syncBookmarks).observe(document.body, { childList: true, subtree: true });
 syncBookmarks();
+
+// Glances stats render as ring gauges (custom.css). The widget only exposes its percentage as the
+// usage bar's inline width, so copy that onto the resource as --pct, and split the value text
+// ("364 MiB") into data attributes so the unit can be styled apart from the number. Both are
+// attributes React doesn't own; writes are skipped when unchanged so the observer doesn't loop.
+const syncGlances = () => {
+  document.querySelectorAll(".information-widget-glances .information-widget-resource").forEach((resource) => {
+    const pct = String(parseFloat(resource.querySelector(".resource-usage > div")?.style.width) || 0);
+    if (resource.style.getPropertyValue("--pct") !== pct) resource.style.setProperty("--pct", pct);
+    const level = Number(pct) >= 85 ? "high" : "";
+    if (resource.dataset.level !== level) resource.dataset.level = level;
+
+    const value = resource.querySelector(".resource-value");
+    if (!value) return;
+    const [, num, unit] = value.textContent.trim().match(/^([\d.,]*)\s*(.*)$/);
+    if (value.dataset.num !== num) value.dataset.num = num;
+    if (value.dataset.unit !== unit) value.dataset.unit = unit;
+  });
+};
+
+new MutationObserver(syncGlances).observe(document.body, {
+  childList: true,
+  subtree: true,
+  characterData: true,
+  attributes: true,
+  attributeFilter: ["style"],
+});
+syncGlances();

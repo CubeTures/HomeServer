@@ -4,7 +4,6 @@
     cpu: true
     mem: true
     disk: /host
-    uptime: true
 - datetime:
     format:
       timeStyle: short

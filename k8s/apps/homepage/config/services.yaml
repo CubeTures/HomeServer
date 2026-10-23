@@ -42,18 +42,18 @@
         namespace: headlamp
         app: headlamp
         podSelector: app.kubernetes.io/name=headlamp
-    - Quantum:
-        icon: sh-filebrowser-quantum-light.png
-        href: http://{{HOMEPAGE_VAR_TAILNET}}:30080
-        namespace: quantum
-        app: quantum
-        podSelector: app=quantum
     - Glances:
         icon: sh-glances-light.png
         href: http://{{HOMEPAGE_VAR_TAILNET}}:30612
         namespace: glances
         app: glances
         podSelector: app=glances
+    - Quantum:
+        icon: sh-filebrowser-quantum-light.png
+        href: http://{{HOMEPAGE_VAR_TAILNET}}:30080
+        namespace: quantum
+        app: quantum
+        podSelector: app=quantum
     - Cloudflared:
         icon: sh-cloudflare-light.png
         href: https://dash.cloudflare.com/

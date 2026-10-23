@@ -10,5 +10,9 @@
 
 ## Homepage
 
-- Flux
-- Glances
+- System Bookmark
+    - If kernel needs updates
+    - If k3s needs updates
+    - If Flux is out of date
+        - Button to reconcile immediately
+- Make all the text and icons white for legibility

@@ -1,3 +1,18 @@
+/* Blur and dim the background image itself (instead of settings.yaml's blur/brightness, which become
+   a backdrop-filter on the scrolling wrapper), sized to the largest viewport so it never resizes or
+   shifts while the mobile URL bar slides. It overhangs every edge by 2x the blur so the blurred
+   edges don't fade in. Values match the old settings: blur sm (8px in Tailwind v4), brightness 75 */
+#background {
+	inset: -16px -16px auto;
+	height: calc(100lvh + 32px);
+	filter: blur(8px) brightness(0.75);
+}
+
+.service-group-name,
+.service-name {
+	color: white;
+}
+
 /* The group's collapse wrapper is overflow:hidden, which clips tile shadows on the
    outer edges; give the shadows room inside it without shifting the layout */
 .services-group > .overflow-hidden {
@@ -104,6 +119,207 @@
 .k8s-status > .bg-emerald-500 {
 	background-color: currentColor;
 	opacity: 0.1;
+}
+
+/* Glances stats as ring gauges: the ring wraps the icon, with a big value and a small label beside
+   it. custom.js copies each usage bar's width into --pct (and flags >= 85% as data-level="high")
+   and splits the value into data-num / data-unit so the unit can be styled on its own */
+/* Equal fixed-width slots keep the rings evenly spaced and stop refreshes from shifting the row.
+   Each fits ring + "999.9 GB"; a longer value (memory peaks at "1,023.9 MiB" before switching to
+   GiB) just runs into the gap. The font size matches the value so ch is one digit's width */
+.information-widget-glances > div {
+	display: grid !important;
+	grid-template-columns: repeat(3, calc(44px + 7.5ch));
+	column-gap: 1.25rem;
+	font-size: 16px;
+}
+
+.information-widget-glances .information-widget-resource {
+	--ring: rgb(226 232 240 / 0.7);
+	--accent: rgb(226 232 240);
+	--muted: rgb(148 163 184);
+	position: relative;
+	margin-right: 0;
+}
+
+.information-widget-glances .information-widget-resource[data-level="high"] {
+	--ring: rgb(251 191 36);
+	--accent: rgb(251 191 36);
+}
+
+.information-widget-glances .information-widget-resource::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 34px;
+	height: 34px;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	background: conic-gradient(
+		var(--ring) calc(var(--pct, 0) * 1%),
+		rgb(226 232 240 / 0.15) 0
+	);
+	mask: radial-gradient(
+		farthest-side,
+		transparent calc(100% - 3px),
+		#000 calc(100% - 2.5px)
+	);
+}
+
+.information-widget-glances .resource-icon {
+	box-sizing: content-box;
+	width: 14px;
+	height: 14px;
+	padding: 10px;
+	color: var(--ring);
+}
+
+.information-widget-glances .information-widget-resource > div {
+	min-width: 0;
+	margin-left: 10px;
+}
+
+/* Value and label stack instead of sitting either end of a row */
+.information-widget-glances
+	.information-widget-resource
+	> div
+	> div:first-child {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1px;
+}
+
+.information-widget-glances .resource-value {
+	padding: 0;
+	font-size: 0;
+	line-height: 1.25;
+	color: var(--accent);
+}
+
+.information-widget-glances .resource-value::before {
+	content: attr(data-num);
+	font-size: 16px;
+}
+
+.information-widget-glances .resource-value::after {
+	content: attr(data-unit);
+	margin-left: 0.2em;
+	font-size: 12px;
+}
+
+.information-widget-glances .resource-value[data-unit="%"]::after {
+	margin-left: 0;
+}
+
+/* Glances always renders cpu / mem / disk; show them as disk / mem / cpu */
+.information-widget-glances .information-widget-resource:nth-child(1) {
+	order: 3;
+}
+
+.information-widget-glances .information-widget-resource:nth-child(2) {
+	order: 2;
+}
+
+.information-widget-glances .information-widget-resource:nth-child(3) {
+	order: 1;
+}
+
+/* Labels are rewritten by DOM position (cpu / mem / disk, unaffected by the reorder above) */
+.information-widget-glances .resource-value + div {
+	padding: 0;
+	font-size: 0;
+}
+
+.information-widget-glances .resource-value + div::after {
+	font-size: 10px;
+	color: var(--muted);
+}
+
+.information-widget-glances
+	.information-widget-resource:nth-child(1)
+	.resource-value
+	+ div::after {
+	content: "CPU";
+}
+
+.information-widget-glances
+	.information-widget-resource:nth-child(2)
+	.resource-value
+	+ div::after {
+	content: "MEM FREE";
+}
+
+.information-widget-glances
+	.information-widget-resource:nth-child(3)
+	.resource-value
+	+ div::after {
+	content: "DISK FREE";
+}
+
+/* The ring replaces the bar */
+.information-widget-glances .resource-usage {
+	display: none;
+}
+
+/* Phones: no clock (the right-aligned widgets, currently just datetime), and the stats share the
+   width as three centred columns (ring, value, label stacked) so the free amounts never wrap */
+@media (max-width: 639px) {
+	#information-widgets-right {
+		display: none;
+	}
+
+	.information-widget-glances {
+		flex-basis: 100%;
+		margin-top: 1rem;
+	}
+
+	/* Same fixed equal slots, sized for the stacked layout and centred under the clock */
+	.information-widget-glances > div {
+		width: 100%;
+		grid-template-columns: repeat(3, 5.5rem);
+		justify-content: center;
+		column-gap: 1rem;
+	}
+
+	.information-widget-glances .information-widget-resource {
+		flex-direction: column;
+		gap: 8px;
+		margin-right: 0;
+	}
+
+	.information-widget-glances .information-widget-resource::before {
+		top: 6px;
+		left: 50%;
+		width: 40px;
+		height: 40px;
+		transform: translateX(-50%);
+	}
+
+	.information-widget-glances .resource-icon {
+		width: 16px;
+		height: 16px;
+		padding: 12px;
+	}
+
+	.information-widget-glances .information-widget-resource > div {
+		margin-left: 0;
+	}
+
+	.information-widget-glances
+		.information-widget-resource
+		> div
+		> div:first-child {
+		align-items: center;
+	}
+
+	.information-widget-glances .resource-value::before {
+		font-size: 15px;
+	}
+
+	.information-widget-glances .resource-value::after {
+		font-size: 11px;
+	}
 }
 
 /* Bookmarks are shown as bare icons in the footer row instead (custom.js copies them there) */

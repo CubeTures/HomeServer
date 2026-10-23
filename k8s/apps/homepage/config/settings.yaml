@@ -9,8 +9,6 @@ bookmarksStyle: icons
 cardBlur: lg
 background:
   image: /images/background.jpg
-  blur: sm
-  brightness: 75
 layout:
   Media:
     style: row
